@@ -7,8 +7,8 @@
       :class="[
         'capitalize disabled:shadow-none disabled:bg-gray-100',
         {
-          correct: id === correctAnswer && blockSelection,
-          incorrect: id !== correctAnswer && blockSelection,
+          correct: id == correctAnswer && blockSelection,
+          incorrect: id != correctAnswer && blockSelection,
         },
       ]"
       :disabled="blockSelection"

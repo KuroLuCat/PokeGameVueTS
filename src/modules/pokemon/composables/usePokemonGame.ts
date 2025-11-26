@@ -17,7 +17,7 @@ export const usePokemonGame = () => {
 
   const randomPokemon = computed(() => {
     const randomIndex = Math.floor(Math.random() * pokemonOptions.value.length);
-    return pokemonOptions.value[randomIndex] ?? { id: 0, name: '' };
+    return pokemonOptions.value[randomIndex];
   });
 
   const isLoading = computed(() => pokemons.value.length === 0);
@@ -43,7 +43,7 @@ export const usePokemonGame = () => {
   };
 
   const checkAnswer = (id: number) => {
-    const hasWon = randomPokemon.value.id === id;
+    const hasWon = randomPokemon.value?.id === id;
 
     if (hasWon) {
       gameStatus.value = GameStatus.Won;
@@ -58,8 +58,12 @@ export const usePokemonGame = () => {
   };
 
   onMounted(async () => {
+    // console.log('Mounted usePokemonGame');
     pokemons.value = await getPokemons();
     getNextRound();
+
+    // console.log(pokemonOptions.value);
+    // console.log('finised mounting usePokemonGame');
   });
 
   return {

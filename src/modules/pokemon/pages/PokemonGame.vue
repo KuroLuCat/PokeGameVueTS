@@ -1,6 +1,6 @@
 <template>
   <section
-    v-if="isLoading || randomPokemon.id === null"
+    v-if="isLoading || randomPokemon?.id === null"
     class="flex flex-col justify-center items-center w-screen h-screen"
   >
     <h1 class="text-3xl">Espere por favor</h1>
@@ -14,8 +14,9 @@
     <div class="h-20">
       <button
         v-if="gameStatus !== GameStatus.Playing"
-        @click="getNextRound()"
+        @click="getNextRound(4)"
         class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 transition-alls"
+        data-test-id="btn-new-game"
       >
         ¿Jugar de nuevo?
       </button>
@@ -25,14 +26,14 @@
 
     <!-- POkemon picture -->
     <PokemonPicture
-      :pokemon-id="randomPokemon.id"
+      :pokemon-id="randomPokemon?.id ?? 0"
       :show-pokemon="gameStatus !== GameStatus.Playing"
     />
     <!-- POkemon options -->
     <PokemonOptions
       :options="options"
       :block-selection="gameStatus !== GameStatus.Playing"
-      :correct-answer="randomPokemon.id"
+      :correct-answer="randomPokemon?.id ?? 0"
       @selected-option="checkAnswer"
     />
   </section>
