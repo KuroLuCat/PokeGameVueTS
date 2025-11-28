@@ -92,5 +92,6 @@ export const usePokemonGame = () => {
     startRound,
     pokemons,
     nextAction,
+    numberOfRounds,
   };
 };
