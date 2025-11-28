@@ -7,22 +7,25 @@
     <h1 class="animate-pulse">Cargando Pokemons</h1>
   </section>
 
-  <section class="flex flex-col justify-center items-center w-screen h-screen">
-    <h1 class="m-5">¿Quien es este pokemon?</h1>
-    <!-- <h3 class="capitalize">{{ gameStatus }}</h3> -->
+  <section class="absolute top-0 left-0 w-full flex justify-between items-center p-4">
+    <h2 class="m-4">Ronda: {{ currentRound }}/5</h2>
+    <h2 v-if="gameStatus === GameStatus.Playing" class="m-2">Tiempo restante: {{ time }}</h2>
+    <h2 class="m-4">Puntaje: {{ score }}</h2>
+  </section>
 
+  <section class="flex flex-col justify-center items-center w-screen h-screen">
+    <h1 class="m-5">¿Quién es este pokemon?</h1>
+    <!-- <h3 class="capitalize">{{ gameStatus }}</h3> -->
     <div class="h-20">
       <button
         v-if="gameStatus !== GameStatus.Playing"
-        @click="getNextRound(4)"
+        @click="nextAction"
         class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 transition-alls"
         data-test-id="btn-new-game"
       >
-        ¿Jugar de nuevo?
+        {{ gameStatus === GameStatus.Finished ? 'Nuevo juego' : 'Siguiente ronda' }}
       </button>
     </div>
-
-    <!-- <button @click="getNextRound()" :hidden="gameStatus === GameStatus.Playing">Nuevo juego</button> -->
 
     <!-- POkemon picture -->
     <PokemonPicture
@@ -50,14 +53,12 @@ const {
   isLoading,
   gameStatus,
   pokemonOptions: options,
-  getNextRound,
   checkAnswer,
+  score,
+  time,
+  currentRound,
+  nextAction,
 } = usePokemonGame();
 </script>
 
-<style scoped>
-/* @reference "tailwindcss";
-button {
-  @apply bg-white shadow-md rounded-lg p-1 m-2 cursor-pointer w-40 text-center transition-all hover:bg-gray-100;
-} */
-</style>
+<style scoped></style>
